@@ -3,6 +3,6 @@
 int main()     
 {     
 std::cout<<"Hello Worldn";   
-// Now feature X added  
+// Now feature X added   ...
 
 }   

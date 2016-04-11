@@ -13,7 +13,7 @@ CFLAGS = -Wall -g
 
 # define any directories containing header files other than /usr/include
 #
-INCLUDES = 
+INCLUDES = -I./inc 
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
@@ -26,7 +26,8 @@ LFLAGS =
 LIBS = 
 
 # define the C source files
-SRCS = main.cc max.cc
+SRCS = src/main.cc \
+       src/max.cc
 
 # define the C object files 
 #
@@ -52,19 +53,20 @@ TARGET = hello_word
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) -Wall $(LIBS) -o $@
+	$(CC) $(OBJS) $(CFLAGS) $(INCLUDES) $(LIBS) -o $@
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
 # (see the gnu make manual section about automatic variables)
 %.o: %.cc
-	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -o $@ -c $<
 
 -include $(SOURCES:.c=.d)
 
+
 clean:
-	$(RM) *.o *.d *~ $(TARGET)
+	$(RM) src/*.o src/*.d *~ $(TARGET)
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^

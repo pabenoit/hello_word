@@ -26,7 +26,7 @@ LFLAGS =
 LIBS = 
 
 # define the C source files
-SRCS = main.cc max.c
+SRCS = main.cc max.cc
 
 # define the C object files 
 #
@@ -36,9 +36,7 @@ SRCS = main.cc max.c
 # Below we are replacing the suffix .c of all words in the macro SRCS
 # with the .o suffix
 #
-OBJS_C = $(SRCS:.c=.o)
-OBJS_CC = $(SRCS:.cc=.o)
-OBJS = $(OBJS_C)
+OBJS = $(SRCS:.cc=.o)
 
 # define the executable file 
 TARGET = hello_word
@@ -60,9 +58,6 @@ $(TARGET): $(OBJS)
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
 # (see the gnu make manual section about automatic variables)
-%.o: %.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -o $@ -c $<
-
 %.o: %.cc
 	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -o $@ -c $<
 

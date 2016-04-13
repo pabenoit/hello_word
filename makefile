@@ -64,7 +64,6 @@ $(TARGET): $(OBJS)
 
 -include $(SOURCES:.c=.d)
 
-
 clean:
 	$(RM) src/*.o src/*.d *~ $(TARGET)
 
